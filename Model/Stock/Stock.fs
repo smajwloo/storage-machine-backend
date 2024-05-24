@@ -17,13 +17,13 @@ type Quantity = int
 /// All products in the given bins.
 let allProducts bins : List<Product> =
     bins
-    |> Seq.choose (failwith "Exercise 0: Fill this in to complete this function. Use type inference as a guide.")
+    |> Seq.filter Bin.isNotEmpty
+    |> Seq.choose (fun bin -> bin.Content)
     |> Seq.map Product
     |> Seq.toList
-// TODO: Exercise 0: what if a bin occurs multiple times in the input?
 
 /// Total quantity of each of the provided products.
 let totalQuantity products : Map<Product, Quantity> =
     products
-    |> failwith "Exercise 0: Fill this in to complete this function. Use type inference as a guide."
+    |> failwith "Products cannot be empty"
     |> Map.ofSeq
