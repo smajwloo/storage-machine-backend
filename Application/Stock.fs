@@ -29,10 +29,11 @@ let stockOverview (dataAccess : IStockDataAccess) : List<Bin> =
 type ProductsOverview = Set<Product * Quantity>
 
 /// An overview of all products stored in the Storage Machine, regardless what bins contain them.
-let productsInStock bins : ProductsOverview =
+let productsInStock (dataAccess : IStockDataAccess) : ProductsOverview =
+    let bins = stockOverview dataAccess
     // Use the model
     let products = Stock.allProducts bins
     products
-    |> List.countBy id
-    |> List.map (fun (product, quantity) -> (product, quantity))
-    |> Set.ofList
+    |> totalQuantity
+    |> Map.toSeq
+    |> Set.ofSeq

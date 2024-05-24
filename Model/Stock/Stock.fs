@@ -17,7 +17,6 @@ type Quantity = int
 /// All products in the given bins.
 let allProducts bins : List<Product> =
     bins
-    |> Seq.filter Bin.isNotEmpty
     |> Seq.choose (fun bin -> bin.Content)
     |> Seq.map Product
     |> Seq.toList
@@ -25,5 +24,5 @@ let allProducts bins : List<Product> =
 /// Total quantity of each of the provided products.
 let totalQuantity products : Map<Product, Quantity> =
     products
-    |> failwith "Products cannot be empty"
+    |> List.countBy id
     |> Map.ofSeq

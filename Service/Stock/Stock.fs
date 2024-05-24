@@ -27,8 +27,7 @@ let stockOverview (next: HttpFunc) (ctx: HttpContext) =
 let productsInStock (next: HttpFunc) (ctx: HttpContext) =
     task {
         let dataAccess = ctx.GetService<IStockDataAccess> ()
-        let bins = Stock.stockOverview dataAccess
-        let productsOverview = Stock.productsInStock bins 
+        let productsOverview = Stock.productsInStock dataAccess 
         return! ThothSerializer.RespondJson productsOverview Serialization.encoderProductsOverview next ctx 
     }
 
